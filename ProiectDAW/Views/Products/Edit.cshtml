@@ -1,0 +1,46 @@
+﻿@model ProiectDAW.Models.Product
+
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Products", method: FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.HiddenFor(m => m.ProdusID)
+    <br />
+    @Html.Label("Titlu", "Titlu Produs")
+    <br />
+    @Html.Editor("Titlu")
+    @Html.ValidationMessageFor(m => m.Titlu, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Descriere", "Continut Produs")
+    <br />
+    @Html.EditorFor(m => m.Descriere)
+    @Html.ValidationMessageFor(m => m.Descriere, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Pret", "Pret Produs")
+    <br />
+    @Html.Editor("Pret")
+    @Html.ValidationMessageFor(m => m.Pret, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.HiddenFor(m => m.ImagePath)
+    <br />
+    <img src="@(Model.ImagePath == null ? @Url.Content("~/Image/default.png") : @Url.Content(Model.ImagePath))" width="250" height="250" />
+
+
+    <br /><br />
+    <input type="file" name="ImageFile">
+    <br /><br />
+
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategorieID,
+        new SelectList(Model.Categ, "Value", "Text"),
+        "Selectati categoria", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategorieID, "", new { @class = "text-danger" })
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Modifica produs</button>
+}
+

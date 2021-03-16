@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+@using ProiectDAW.Controllers
+
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+
+<table class="content-table">
+    <thead>
+    <tr>
+        <th>Nume</th>
+        <th>Pret</th>
+        <th>Cantitate</th>
+        <th>Subtotal</th>
+        <th>Optiune</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        double s = 0;
+    }
+    @foreach (Item item in (List<Item>)Session["cart"])
+    {
+        s = s + item.product.Pret * item.quantity;
+        <tr>
+
+            <td>@item.product.Titlu</td>
+            <td>@item.product.Pret RON</td>
+            <td>@item.quantity</td>
+            <td>@(item.product.Pret * item.quantity)</td>
+            <td>@Html.ActionLink("Sterge", "Delete", "ShoppingCart", new { id = item.product.ProdusID }, null)
+        </tr>
+    }
+    </tbody>
+</table>
+<br />
+<tr>
+    <td style="text-align:center" colspan="5">Total: </td>
+    <td><strong>@s</strong></td> RON
+</tr>
+<br /><br />
+@Html.ActionLink("Continua Cumparaturile", "Index", "Products", null, new { @class = "btn btn-success" })

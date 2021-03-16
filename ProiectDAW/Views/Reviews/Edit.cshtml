@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Titlu = "Edit";
+}
+
+<h2>Editare review</h2>
+<form method="post" action="/Reviews/Edit/@ViewBag.Review.ReviewID">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    <label>Continut review</label>
+    <br />
+    <textarea name="Content">@ViewBag.Review.Content</textarea>
+    <br />
+    <button class="btn btn-success" type="submit">Editeaza review</button>
+</form>

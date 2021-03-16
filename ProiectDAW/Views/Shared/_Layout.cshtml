@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazin Cool</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body style="background-color: #f3f3f3;">
+    <div class="container" style="background-color:white; padding-bottom: 1rem; padding-top: 1rem;">
+        <img src="~/Image/banner.png" style=" max-width: 1300px; margin-left: 15px; margin-right:15px;" alt="nu a fost gasita imaginea?">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div style="font-weight: bold;">
+                    @Html.ActionLink("Magazin Cool", "Index", "Products", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Lista Produse", "Index", "Products", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <li class="nav-item"> @Html.ActionLink("Afiseaza categorii", "Index", "Categories", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item"> @Html.ActionLink("Adauga categorii", "New", "Categories", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item"> @Html.ActionLink("Adauga produse", "New", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item"> @Html.ActionLink("Afiseaza utilizatori", "Index", "Users", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item"> @Html.ActionLink("Lista Request-uri", "IndexRequest", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+
+                        @if (User.IsInRole("Colab"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Trimite un Request", "NewRequest", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+
+                        }
+
+                    </ul>
+
+                    @Html.Partial("_LoginPartial")
+
+                </div>
+            </nav>
+        </div>
+
+        <div class="custom-div">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>
+

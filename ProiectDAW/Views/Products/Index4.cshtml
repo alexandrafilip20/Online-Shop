@@ -1,0 +1,30 @@
+﻿
+@model IEnumerable<ProiectDAW.Models.Product>
+
+<h1>@ViewBag.Message</h1>
+
+<a class="btn btn-success" href="/Products/Index">Inapoi la produse</a>
+<br /><br />
+      <section class="item-container" id="content-item-container">
+          @foreach (ProiectDAW.Models.Product produs in ViewBag.Produse)
+          {
+              <div class="game-card">
+
+                  @Html.Partial("ProdusInfo", produs)
+
+                  <div class="panel-footer" style="margin-bottom: 1rem; margin-top: 0.5rem">
+
+                      <a class="btn btn-info" href="/Products/Show/@produs.ProdusID" style="margin-right: 0.7rem">Informatii</a>
+                      @Html.ActionLink("Cumpara", "OrderNow", "ShoppingCart", new { id = produs.ProdusID }, new { @class = "btn btn-success" })
+
+                  </div>
+              </div>
+          }
+      </section>
+}
+
+
+
+
+
+

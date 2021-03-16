@@ -1,0 +1,98 @@
+﻿@model ProiectDAW.Models.Product
+
+@{
+    ViewBag.Titlu = "Show";
+}
+
+
+<div class="panel panel-default">
+    @Html.Partial("ProdusInfoShow", Model)
+</div>
+
+<br /><br />
+<hr />
+<br />
+<h3>Review-uri</h3>
+
+<br />
+@foreach (var rev in Model.Reviews)
+{
+    <div class="container" style="box-shadow: 0px 0px 18px 10px rgba(0,0,0,0.04); max-width: 400px; padding: 10px; margin-bottom: 2.75rem">
+        <div class="row">
+            <div class="col-md-8">
+                <div>
+                   
+                    <p>@rev.Content</p>
+                    Nota: <b>@rev.Nota</b>
+                    <br />
+
+                    @if (ViewBag.areCont == true)
+                    {
+                        <br /><i>review adaugat de</i> <strong> @rev.User.UserName </strong>
+                    }
+                    <small class="pull-right" style="margin-bottom: 1rem">@rev.Date</small>
+                    <br />
+                </div>
+
+                @if (rev.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+                {
+                        <div style="display: inline-block; margin-right: 20px">
+                            <a class="glyphicon glyphicon-pencil" href="/Reviews/Edit/@rev.ReviewID"></a>
+                        </div>
+                        <div style="float: right">
+                            <form method="post" action="/Reviews/Delete/@rev.ReviewID">
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button class="btn btn-danger" style="margin-top: 1rem;" type="submit">Sterge Review</button>
+                            </form>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+<br />
+<hr />
+
+<div class="container">
+                <div class="col-md-8">
+                    <div class="panel">
+                        
+                        <form method="post" action="/Products/Show/@Model.ProdusID">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            <div class="panel-body">
+
+                                <input type="hidden" name="ProdusID" value="@Model.ProdusID" />
+                                @if (ViewBag.utilizatorCurent != null)
+                                {
+                                    <h4>Adauga un review</h4>
+                                    <br />
+                                    <label>Continut review</label>
+                                    <br />
+                                    <textarea class="form-control" name="Content"></textarea>
+                                    @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
+                                    <br />
+                                    <label>Nota review</label>
+                                    <br />
+                                    @Html.TextBox("Nota", null, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Rating, null, new { @class = "text-danger" })
+                                    <br />
+                                    <button class="btn btn-success " type="submit">Adauga review</button>
+                                } else
+                                {
+                                    <label>Trebuie sa fii logat pentru a adauga un review!</label>
+                                }
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+      </div>
+<br />
+
+
+
+
+
+
+

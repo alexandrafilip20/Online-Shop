@@ -1,0 +1,22 @@
+﻿
+
+<h5 style="margin-top:0.5rem">@Model.Titlu</h5>
+<div class="panel-body">
+
+    <img src="@(Model.ImagePath == null ? @Url.Content("~/Image/default.png") : @Url.Content(Model.ImagePath))" width="250" height="250" />
+
+    <br /> <br />
+    Rating produs: <strong>@Model.Rating</strong>
+    <br />
+
+    Pret produs: <strong>@Model.Pret RON</strong> 
+
+    <br />
+    <hr>
+</div>
+
+@*
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-asterisk"></span> Asterisk
+    </button>
+*@

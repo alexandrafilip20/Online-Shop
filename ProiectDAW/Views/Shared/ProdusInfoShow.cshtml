@@ -1,0 +1,66 @@
+﻿
+<main class="ccontainer">
+
+    <!-- Left Column / Headphones Image -->
+    <div class="cleft-column">
+        <img src="@(Model.ImagePath == null ? @Url.Content("~/Image/default.png") : @Url.Content(Model.ImagePath))" style="height: 100%; width: 100%;" alt="">
+    </div>
+
+
+    <!-- Right Column -->
+    <div class="cright-column">
+
+        <!-- Product Description -->
+        <div class="cproduct-description">
+            <span class="glyphicon glyphicon-globe">@Model.Category.CategorieNume</span>
+            <br />
+            <h style="font-weight:bold" 1>
+                <h1>@Model.Titlu</h1>
+                <p>@Model.Descriere</p>
+        </div>
+
+        <!-- Product Configuration -->
+        <div class="cproduct-configuration">
+
+            <!-- Product Color -->
+            <div class="cproduct-color">
+                <span>Rating: </span>
+                <strong>@Model.Rating</strong>
+
+            </div>
+
+            @if (ViewBag.areCont == true)
+            {
+                <!-- Cable Configuration -->
+                <i>produs adaugat de</i> <strong>@Model.User.UserName</strong>
+            }
+        </div>
+
+        <!-- Product Pricing -->
+        <div class="cproduct-price">
+            <span>@Model.Pret</span>RON
+
+        </div>
+
+        @if (ViewBag.afisareButoane == true && ViewBag.utilizatorCurent == Model.UserId || ViewBag.esteAdmin)
+        {
+            <div style="margin-top: 0.2rem">
+
+                @using (Html.BeginForm(actionName: "Delete", controllerName: "Products"))
+                {
+                    <a class="btn btn-success pull-left" href="/Products/Edit/@Model.ProdusID">Modifica produs</a>
+                    @Html.Hidden("Id");
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-danger pull-right" style="float: right" type="submit">Sterge produs</button>
+                }
+                <div class="clearfix"></div>
+            </div>
+        }
+        else if (User.IsInRole("User") || User.IsInRole("Colab"))
+        {
+            @Html.ActionLink("Cumpara", "OrderNow", "ShoppingCart", new { id = Model.ProdusID }, new { @class = "btn btn-success" })
+        }
+    </div>
+
+    
+</main>

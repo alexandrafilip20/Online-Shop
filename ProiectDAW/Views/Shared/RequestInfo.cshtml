@@ -1,0 +1,18 @@
+﻿
+
+<h5 style="margin-top:0.5rem">@Model.Titlu</h5>
+<div class="panel-body">
+
+    <img src="@(Model.ImagePath == null ? @Url.Content("~/Image/default.png") : @Url.Content(Model.ImagePath))" width="250" height="250" />
+
+    <br />
+    <br />
+
+    Pret produs: <strong>@Model.Pret RON</strong>
+    <br />
+    Descriere produs: <br /><p style="overflow-wrap: break-word; min-height: 67px;"><strong>@Model.Descriere</strong></p>
+    Categorie: @Model.Category.CategorieNume
+    <br />
+        <i>Produs adaugat de</i> <strong> @Model.User.UserName </strong>
+    <br /> <br />
+</div>

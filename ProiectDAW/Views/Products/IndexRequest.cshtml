@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ProiectDAW.Models.Product>
+<br />
+<section class="item-container-request">
+@foreach (ProiectDAW.Models.Product request in ViewBag.Produse)
+{
+        <div class="game-card" style="padding-left: 0.5rem">
+            @Html.Partial("RequestInfo", request)
+
+            <div style="padding-bottom: 1rem;">
+                @using (Html.BeginForm(actionName: "AcceptRequest", controllerName: "Products", method: FormMethod.Post, htmlAttributes: new { style = "float: left; margin-right: 5px;" }))
+                {
+                    @Html.Hidden("id", request.ProdusID)
+                    @Html.HttpMethodOverride(HttpVerbs.Put)
+                    <button class="btn btn-success pull-right" type="submit" style="margin-bottom: 0.2rem">Accepta</button>
+                }
+
+                @using (Html.BeginForm(actionName: "DeleteRequest", controllerName: "Products", method: FormMethod.Post, htmlAttributes: new { style = "float: right; margin-right: 5px;" }))
+                {
+
+                    @Html.Hidden("id", request.ProdusID)
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-danger pull-right" type="submit">Respinge</button>
+                }
+            </div>
+        </div>
+}
+</section>
+<br/>
